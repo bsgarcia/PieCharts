@@ -25,26 +25,25 @@ def save_fig(vals, positive, filename):
     explode = [.01, .01][:len(vals)]
     outer_colors = ['seagreen', 'indianred']
 
-    print(vals)
     if positive is None:
-        print(filename)
         if filename[0] == "0" and filename[2] == "0":
             labeldistance = 1.18
         else:
-            labeldistance = 1.1
+            labeldistance = 1.09
 
         _, labels, autotexts = ax.pie(
-            vals, labeldistance=labeldistance, radius=0.65, colors=outer_colors, pctdistance=0.74,
+            vals, labeldistance=labeldistance, radius=0.65, colors=outer_colors, pctdistance=0.725,
             labels=['+1', '-1'], autopct='%.0f%%',
             wedgeprops=dict(width=size, edgecolor='w'), explode=explode)
     else:
+
         _, labels, autotexts = ax.pie(
             vals, labeldistance=1, radius=0.65, colors=[outer_colors[not positive]],
             labels=[['+1', '-1'][not positive]], autopct='%.0f%%',
             wedgeprops=dict(width=size, edgecolor='w'))
 
     rec = plt.Rectangle(
-        (-1.0639, -1.055), width=2.12, height=2.12, fill=False, lw=5)
+        (-1.068, -1.063), width=2.13, height=2.129, fill=False, lw=5)
 
     rec = ax.add_patch(rec)
     rec.set_clip_on(False)
@@ -95,7 +94,6 @@ def main():
             rwin = i[1]
             plose = j[0]
             rlose = i[0]
-            # print(j[0]*100, j[1]*100)
             ev = '%.1f' % (sum([pwin*rwin, plose*rlose]))
 
             if pwin != 0 and plose != 0:
@@ -103,7 +101,7 @@ def main():
                     ([int(j[1] * 100) / 100, int(j[0] * 100) / 100], None)
             else:
                 val, positive = \
-                    ([[int(j[1] * 100) / 100, int(j[0] * 100)][plose != 0] / 100], pwin != 0)
+                    ([[int(j[1] * 100), int(j[0] * 100)][plose != 0] / 100], pwin != 0)
 
             save_fig(val, positive, filename=f'{ev}_0.png')
     # ------------------------------------------------------------------------------- # 
